@@ -19,7 +19,7 @@ ORDER BY 1 ASC
 const billingReport = data => data[0].map(row => `month:${row.month} total:${row.total} total_exact:${row.total_exact}`).join('\n');
 
 class BillingReporter {
-
+    billingDataset;
     constructor(projectId, billingAccountId, billingDataset) {
         this.bigquery = new BigQuery({
             projectId: projectId,
