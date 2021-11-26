@@ -1,6 +1,6 @@
 const { BigQuery } = require('@google-cloud/bigquery');
 
-const query = billingAccountId => `
+const query = (billingAccountId,billingDataset) => `
 SELECT
   invoice.month,
   SUM(cost)
@@ -19,7 +19,7 @@ ORDER BY 1 ASC
 const billingReport = data => data[0].map(row => `month:${row.month} total:${row.total} total_exact:${row.total_exact}`).join('\n');
 
 class BillingReporter {
-    billingDataset;
+
     constructor(projectId, billingAccountId, billingDataset) {
         this.bigquery = new BigQuery({
             projectId: projectId,
@@ -30,7 +30,7 @@ class BillingReporter {
 
     query() {
         return this.bigquery.query({
-            query: query(this.billingAccountId),
+            query: query(this.billingAccountId,this.billingDataset),
             useLegacySql: false,
         }).then(data => new Promise(
             resolve => resolve(billingReport(data))
