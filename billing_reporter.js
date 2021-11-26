@@ -16,7 +16,7 @@ GROUP BY 1
 ORDER BY 1 ASC
 ;
 `;
-const billingReport = data => data[0].map(row => `month:${row.month} total:${row.total} total_exact:${row.total_exact}`).join('\n');
+const billingReport = data => data[0].map(row => `dan month:${row.month} total:${row.total} total_exact:${row.total_exact}`).join('\n');
 
 class BillingReporter {
 
