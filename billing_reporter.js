@@ -11,7 +11,7 @@ SELECT
     + SUM(IFNULL((SELECT SUM(CAST(c.amount * 1000000 as int64))
                   FROM UNNEST(credits) c), 0))) / 1000000
     AS total_exact
-FROM \`my_billing_data.gcp_billing_export_v1_${billingAccountId}\`
+FROM \`${billingDataset}.gcp_billing_export_v1_${billingAccountId}\`
 GROUP BY 1
 ORDER BY 1 ASC
 ;
@@ -20,11 +20,12 @@ const billingReport = data => data[0].map(row => `month:${row.month} total:${row
 
 class BillingReporter {
 
-    constructor(projectId, billingAccountId) {
+    constructor(projectId, billingAccountId, billingDataset) {
         this.bigquery = new BigQuery({
             projectId: projectId,
         });
         this.billingAccountId = billingAccountId;
+        this.billingDataset = billingDataset;
     }
 
     query() {
