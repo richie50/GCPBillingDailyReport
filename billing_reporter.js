@@ -2,21 +2,25 @@ const { BigQuery } = require('@google-cloud/bigquery');
 
 const query = (billingAccountId,billingDataset) => `
 SELECT
-  invoice.month,
-  SUM(cost)
-    + SUM(IFNULL((SELECT SUM(c.amount)
-                  FROM UNNEST(credits) c), 0))
-    AS total,
-  (SUM(CAST(cost * 1000000 AS int64))
-    + SUM(IFNULL((SELECT SUM(CAST(c.amount * 1000000 as int64))
-                  FROM UNNEST(credits) c), 0))) / 1000000
-    AS total_exact
+  ROUND(SUM(cost),2) AS dailyCost,
+  FORMAT_DATE('%Y-%m-%d', DATE(usage_end_time)) AS day,
+  (
+      SELECT value
+      FROM UNNEST(project.labels)
+      WHERE KEY='env') AS environment
 FROM \`${billingDataset}.gcp_billing_export_resource_v1_${billingAccountId}\`
-GROUP BY 1
-ORDER BY 1 ASC
+WHERE
+  FORMAT_DATE('%Y-%m-%d', DATE(usage_end_time)) = FORMAT_DATE('%Y-%m-%d', CURRENT_DATE()) OR 
+  FORMAT_DATE('%Y-%m-%d', DATE(usage_end_time)) = FORMAT_DATE('%Y-%m-%d', DATE_ADD(CURRENT_DATE(), INTERVAL -1 DAY)) OR
+  FORMAT_DATE('%Y-%m-%d', DATE(usage_end_time)) = FORMAT_DATE('%Y-%m-%d', DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY))
+GROUP BY
+  environment,
+  day
+ORDER BY
+  day DESC
 ;
 `;
-const billingReport = data => data[0].map(row => `danmonth:${row.month} total:${row.total} total_exact:${row.total_exact}`).join('\n');
+const billingReport = data => data[0].map(row => `${row.day} ${row.total}`).join('\n');
 
 class BillingReporter {
 
