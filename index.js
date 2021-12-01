@@ -6,7 +6,7 @@ const BILLING_ACCOUNT_ID = process.env.BILLING_ACCOUNT_ID.replace(/-/g, '_');
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const BILLING_DATASET = process.env.BILLING_DATASET;
 
-const logOutput = data => data.length > 0 && data.map(row => `*Date*: ${row.day} *Cost*: $${row.total} \n`);
+const logOutput = data => data.length > 0 && data.map(row => `*Date*: ${row?.date} *Cost*: $${row?.cost} \n`);
 
 function main() {
     const billingReporter = new BillingReporter(
