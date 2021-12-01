@@ -20,8 +20,21 @@ ORDER BY
   day DESC
 ;
 `;
-const billingReport = data => data[0].map(row => `*Date*: ${row.day} *Cost*: $${row.total}`).join('\n');
+//const billingReport = data => data[0].map(row => `*Date*: ${row.day} *Cost*: $${row.total}`).join('\n');
 
+const billingReport = data => {
+  console.log('wank ' , data);
+  if(data && data.length > 0){
+      const mappedData = data.map(row => {
+        return{
+          date: row.day,
+          cost: row.dailyCost,
+        }
+      });
+      return mappedData;
+  }
+  return null;
+};
 
 class BillingReporter {
 

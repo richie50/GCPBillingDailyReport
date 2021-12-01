@@ -6,6 +6,8 @@ const BILLING_ACCOUNT_ID = process.env.BILLING_ACCOUNT_ID.replace(/-/g, '_');
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const BILLING_DATASET = process.env.BILLING_DATASET;
 
+const logOutput = data => data.length > 0 && data.map(row => `*Date*: ${row.day} *Cost*: $${row.total} \n`);
+
 function main() {
     const billingReporter = new BillingReporter(
         PROJECT_ID,
@@ -15,9 +17,9 @@ function main() {
     );
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
     const announce       = "this a test";
-
+    
     return billingReporter.query().then(
-        result => slackWebhooker.post(`${result} ${announce}`)
+        result => slackWebhooker.post(`${logOutput(result)} ${announce}`)
     ).then(console.log).catch(console.error);
 }
 
