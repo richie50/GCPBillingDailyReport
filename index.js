@@ -25,7 +25,7 @@ function datastudio() {
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
 
     return announce(
-        dslink => slackWebhooker.post(dslink)
+        announce => slackWebhooker.post(announce)
     ).then(console.log).catch(console.error);
 }
 
