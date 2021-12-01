@@ -21,6 +21,7 @@ ORDER BY
 ;
 `;
 const billingReport = data => data[0].map(row => `*Date*: ${row.day} *Cost*: $${row.total}`).join('\n');
+const billingReport = data => data[1].map(row => `Yesterday*Date*: ${row.day} *Cost*: $${row.total}`).join('\n');
 
 class BillingReporter {
 
