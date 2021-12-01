@@ -20,7 +20,7 @@ function main() {
     ).then(console.log).catch(console.error);
 }
 
-function main() {
+function datastudio() {
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
     const announce       = "this is a test";
 
@@ -30,3 +30,4 @@ function main() {
 }
 
 module.exports.main = main;
+module.exports.datastudio = datastudio;
