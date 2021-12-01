@@ -20,7 +20,7 @@ ORDER BY
   day DESC
 ;
 `;
-const billingReport = data => data[0].map(row => `*Date*: ${row.day} Cost: $${row.total}`).join('\n');
+const billingReport = data => data[0].map(row => `:rotating_light:Billing Report:rotating_light: \n *Date*: ${row.day} *Cost*: $${row.total}`).join('\n');
 
 class BillingReporter {
 
