@@ -21,13 +21,22 @@ function main() {
 }
 
 function datastudio() {
-    const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
     const announce       = "this is a test";
+    const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
 
     return announce(
-        announce => slackWebhooker.post(announce)
-    )
+        dslink => slackWebhooker.post(dslink)
+    ).then(console.log).catch(console.error);
 }
+
+// function datastudio() {
+//     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
+//     const announce       = "this is a test";
+
+//     return announce(
+//         announce => slackWebhooker.post(announce)
+//     )
+// }
 
 module.exports.main = main;
 module.exports.datastudio = datastudio;
