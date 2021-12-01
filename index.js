@@ -17,7 +17,7 @@ function main() {
 
     return billingReporter.query().then(
         result => slackWebhooker.post(result)
-    ).then(console.log).catch(console.error);
+    ).then(console.log).catch(console.error),'this is a test';
 }
 
 module.exports.main = main;
