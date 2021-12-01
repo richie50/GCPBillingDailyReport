@@ -11,13 +11,19 @@ function main() {
         PROJECT_ID,
         BILLING_ACCOUNT_ID,
         BILLING_DATASET,
-        
+    
     );
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
+    const announce       = "this is a test";
+
+    return billingReporter.query().then(
+        result => slackWebhooker.post(announce, result)
+    ).then(console.log).catch(console.error);
 
     return billingReporter.query().then(
         result => slackWebhooker.post(result)
-    ).then(console.log).catch(console.error),'this is a test';
+    ).then(console.log).catch(console.error);
+
 }
 
 module.exports.main = main;
