@@ -37,7 +37,7 @@ class BillingReporter {
             query: query(this.billingAccountId,this.billingDataset),
             useLegacySql: false,
         }).then(data => new Promise(
-            resolve => resolve(billingReport(`:rotating_light:Billing Report:rotating_light:`data))
+            resolve => resolve(billingReport(data))
         ));
     }
 }
