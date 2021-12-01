@@ -16,7 +16,7 @@ function main() {
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
     const announce       = "this is a test";
 
-    return billingReporter.query().then(
+    return announce(
         result => slackWebhooker.post(announce)
     )
 
