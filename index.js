@@ -17,7 +17,7 @@ function main() {
     const announce       = "this is a test";
 
     return billingReporter.query().then(
-        announce => slackWebhooker.post(announce),
+        result => slackWebhooker.post(announce),
         result => slackWebhooker.post(result)
     ).then(console.log).catch(console.error);
 }
