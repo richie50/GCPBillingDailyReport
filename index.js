@@ -14,12 +14,19 @@ function main() {
     
     );
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
-    const announce       = "this is a test";
 
     return billingReporter.query().then(
-        result => slackWebhooker.post(announce),
         result => slackWebhooker.post(result)
     ).then(console.log).catch(console.error);
+}
+
+function main() {
+    const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
+    const announce       = "this is a test";
+
+    return announce(
+        announce => slackWebhooker.post(announce)
+    )
 }
 
 module.exports.main = main;
