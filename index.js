@@ -16,23 +16,23 @@ function main() {
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
 
     return billingReporter.query().then(
-        result => slackWebhooker.post(result)
+        result => slackWebhooker.post('test')
     ).then(console.log).catch(console.error);
 }
 
-function datastudio() {
-    const billingReporter = new BillingReporter(
-        PROJECT_ID,
-        BILLING_ACCOUNT_ID,
-        BILLING_DATASET,
+// function datastudio() {
+//     const billingReporter = new BillingReporter(
+//         PROJECT_ID,
+//         BILLING_ACCOUNT_ID,
+//         BILLING_DATASET,
     
-    );
-    const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
+//     );
+//     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
 
-    return billingReporter.query().then(
-        slackWebhooker.post('testing 123')
-    ).then(console.log).catch(console.error);
-}
+//     return billingReporter.query().then(
+//         slackWebhooker.post('testing 123')
+//     ).then(console.log).catch(console.error);
+// }
 
 // function datastudio() {
 //     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
@@ -44,4 +44,4 @@ function datastudio() {
 // }
 
 module.exports.main = main;
-module.exports.datastudio = datastudio;
+// module.exports.datastudio = datastudio;
