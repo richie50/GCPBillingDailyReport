@@ -24,8 +24,8 @@ function datastudio() {
     const announce       = "this is a test";
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
 
-    return announce(
-        announce => slackWebhooker.post(announce)
+    return billingReporter.query().then(
+        slackWebhooker.post('testing 123')
     ).then(console.log).catch(console.error);
 }
 
