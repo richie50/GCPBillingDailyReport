@@ -21,7 +21,12 @@ function main() {
 }
 
 function datastudio() {
-    const announce       = "this is a test";
+    const billingReporter = new BillingReporter(
+        PROJECT_ID,
+        BILLING_ACCOUNT_ID,
+        BILLING_DATASET,
+    
+    );
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
 
     return billingReporter.query().then(
