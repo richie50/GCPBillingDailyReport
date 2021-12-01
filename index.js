@@ -16,18 +16,10 @@ function main() {
     const slackWebhooker = new SlackWebhooker(WEBHOOK_URL);
     const announce       = "this is a test";
 
-    return announce(
-        result => slackWebhooker.post(announce)
-    )
-
     return billingReporter.query().then(
+        announce => slackWebhooker.post(announce),
         result => slackWebhooker.post(result)
     ).then(console.log).catch(console.error);
-
-    return billingReporter.query().then(
-        result => slackWebhooker.post(result)
-    ).then(console.log).catch(console.error);
-
 }
 
 module.exports.main = main;
